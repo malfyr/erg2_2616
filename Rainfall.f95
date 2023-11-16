@@ -1,8 +1,10 @@
 program rainfall
 implicit none
-integer::x,i,st,rain(1,5)
-character(20)::s,town(1,5)
-
+integer,parameter,save::Nmax=50
+integer::x,i,st,Nmax,rain(1,Nmax)
+character(20)::s,town(1,Nmax)
+town='0'
+rain=0
 
 
 open(10,file='data.txt',iostat=st)
@@ -16,9 +18,9 @@ read(10,'(A)',iostat=st)s
 
 
 
- do i= 1,5
+ do i= 1,Nmax
    read(10,*,iostat=st) s,x
-   !if (st==-1) exit
+   if (st==-1) exit
   print *,s,x
   town(1,i)=s
   rain(1,i)=x
