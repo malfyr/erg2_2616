@@ -1,6 +1,7 @@
 program rainfall
 implicit none 
 integer::x,i,st,j,N
+real::MO
 integer, parameter, save ::Nmax=50
 character(20)::s
 integer::rain(1,Nmax),R(1,Nmax)
@@ -8,8 +9,14 @@ character(15)::town(1,Nmax),T(1,Nmax)
 
 
 
+
   call ReadData(Nmax,'data.txt',T,R,N)
-  print*,N,T,R
+  print*,N
+  PRINT*,T
+  print*,R
+  MO=FO(R,N)
+  print *, MO
+  
 
 
 
@@ -41,7 +48,7 @@ open(10,file=Filename,iostat=st)
   do i=1,Nmax
    read(10,*,iostat=st) s,x
     if (st==-1) exit
-      print *,s,x
+      !print *,s,x
        T(1,i)=s
          R(1,i)=x
   end do
@@ -54,8 +61,12 @@ open(10,file=Filename,iostat=st)
 
 end subroutine ReadData
 
+PURE function FO(R,N) 
+INTEGER, intent(in)::R(1,Nmax),N
+REAL::FO
 
+FO=REAL(SUM(R))/REAL(N)
 
-
+end function FO
  
 end 
